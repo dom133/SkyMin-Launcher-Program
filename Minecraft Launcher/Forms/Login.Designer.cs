@@ -121,6 +121,7 @@
             this.type_account.Size = new System.Drawing.Size(155, 24);
             this.type_account.TabIndex = 7;
             this.type_account.Text = "No-Premium";
+            this.type_account.SelectedIndexChanged += new System.EventHandler(this.type_account_SelectedIndexChanged);
             // 
             // Login
             // 

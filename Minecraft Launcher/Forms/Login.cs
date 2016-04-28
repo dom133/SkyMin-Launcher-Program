@@ -16,6 +16,19 @@ namespace Minecraft_Launcher.Forms
             InitializeComponent();
         }
 
+        private void changeLoc()
+        {
+            if(type=="Premium")
+            {
+                typ.Location = new Point(87, 95);
+                type_account.Location = new Point(139, 92);
+            } else
+            {
+                typ.Location = new Point(87, 60);
+                type_account.Location = new Point(168, 60);
+            }
+        }
+
         private void Login_Load(object sender, EventArgs e)
         {
             if (Form1.isOnline)
@@ -30,6 +43,7 @@ namespace Minecraft_Launcher.Forms
                     pass_txt.PasswordChar = '\0';
                     pass_txt.Text = Form1.readXml(Form1.appdata + "\\skymin\\config\\user.xml", "Nick");
                     remember.Visible = false;
+                    changeLoc();
                 } else if (type == "Premium") {
                     type_account.Text = "Premium";
                     Form1.WriteLine("Logowanie Premium");
@@ -41,8 +55,10 @@ namespace Minecraft_Launcher.Forms
                     nick_txt.Text = Form1.readXml(Form1.appdata + "\\skymin\\config\\user.xml", "Email");
                     pass_txt.Text = Form1.readXml(Form1.appdata + "\\skymin\\config\\user.xml", "Haslo");
                     if (Form1.readXml(Form1.appdata + "\\skymin\\config\\user.xml", "Remember") == "True") remember.Checked = true;
+                    changeLoc();
                 } else if (type == "SkyMin") {
                     type_account.Text = "SkyMin";
+                    changeLoc();
                 } else {
                     MessageBox.Show("Wystąpił błąd w pliku xml, aplkacja zostanie wyłączona", "SkyMin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     Application.Exit();
@@ -59,6 +75,7 @@ namespace Minecraft_Launcher.Forms
                 pass_txt.PasswordChar = '\0';
                 pass_txt.Text = Form1.readXml(Form1.appdata + "\\skymin\\config\\user.xml", "Nick");
                 remember.Visible = false;
+                changeLoc();
             }
         }
 
@@ -102,6 +119,7 @@ namespace Minecraft_Launcher.Forms
                     pass_txt.PasswordChar = '\0';
                     pass_txt.Text = Form1.readXml(Form1.appdata + "\\skymin\\config\\user.xml", "Nick");
                     remember.Visible = false;
+                    changeLoc();
                 }
                 else
                 {
@@ -129,6 +147,47 @@ namespace Minecraft_Launcher.Forms
             } else if (type == "SkyMin") {
                 Form1.editXml(Form1.appdata + "\\skymin\\config\\user.xml", "User", "account_type", "SkyMin");
             }
+        }
+
+        private void type_account_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (type_account.Text == "No-Premium")
+            {
+                type_account.Text = "No-Premium";
+                Form1.WriteLine("Logowanie NoPremium");
+                nick_name.Visible = false;
+                nick_txt.Visible = false;
+                pass.Text = "Nick:";
+                pass_txt.PasswordChar = '\0';
+                pass_txt.Text = Form1.readXml(Form1.appdata + "\\skymin\\config\\user.xml", "Nick");
+                remember.Visible = false;
+                changeLoc();
+            }
+            else if (type_account.Text == "Premium")
+            {
+                type_account.Text = "Premium";
+                Form1.WriteLine("Logowanie Premium");
+                nick_name.Visible = true;
+                nick_txt.Visible = true;
+                remember.Visible = true;
+                pass_txt.PasswordChar = '*';
+                pass.Text = "Haslo:";
+                nick_txt.Text = Form1.readXml(Form1.appdata + "\\skymin\\config\\user.xml", "Email");
+                pass_txt.Text = Form1.readXml(Form1.appdata + "\\skymin\\config\\user.xml", "Haslo");
+                if (Form1.readXml(Form1.appdata + "\\skymin\\config\\user.xml", "Remember") == "True") remember.Checked = true;
+                changeLoc();
+            }
+            else if (type_account.Text == "SkyMin")
+            {
+                type_account.Text = "SkyMin";
+                changeLoc();
+            }
+            else
+            {
+                MessageBox.Show("Wystąpił błąd w pliku xml, aplkacja zostanie wyłączona", "SkyMin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                Application.Exit();
+            }
+            type = type_account.Text;
         }
     }
 }
