@@ -36,11 +36,9 @@ namespace Minecraft_Launcher.Class
         {
             try
             {
-                Form1.WriteLine("[MySQL] Poprawnie połączono bazą MySQL");
                 connection.Open();
                 return true;
             } catch(MySqlException ex) {
-                Form1.WriteLine("[MySQL] Nie można połączyć z bazą MySQL");
                 return false;
             }
         }
@@ -52,7 +50,9 @@ namespace Minecraft_Launcher.Class
             {
                 connection.Clone();
                 return true;
-            } catch(MySqlException ex) {
+            }
+            catch (MySqlException ex)
+            {
                 return false;
             }
         }
