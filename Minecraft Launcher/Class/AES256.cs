@@ -9,11 +9,21 @@ namespace Minecraft_Launcher.Class
 {
     class AES256
     {
-        private string Encrypt256(string text, string key, string iv)
+        public static string GetCrypt(string text)
+        {
+            string hash = "";
+            SHA512 alg = SHA512.Create();
+            byte[] result = alg.ComputeHash(Encoding.UTF8.GetBytes(text));
+            hash = Encoding.UTF8.GetString(result);
+            return hash;
+        }
+
+
+        public string Encrypt256(string text, string key, string iv)
         {
             AesCryptoServiceProvider aes = new AesCryptoServiceProvider();
             aes.BlockSize = 128;
-            aes.KeySize = 256;
+            aes.KeySize = 512;
             aes.IV = Encoding.UTF8.GetBytes(iv);
             aes.Key = Encoding.UTF8.GetBytes(key);
             aes.Mode = CipherMode.CBC;
@@ -28,11 +38,11 @@ namespace Minecraft_Launcher.Class
             }
         }
 
-        private string Decrypt256(string text, string key, string iv)
+        public string Decrypt256(string text, string key, string iv)
         {
             AesCryptoServiceProvider aes = new AesCryptoServiceProvider();
             aes.BlockSize = 128;
-            aes.KeySize = 256;
+            aes.KeySize = 512;
             aes.IV = Encoding.UTF8.GetBytes(iv);
             aes.Key = Encoding.UTF8.GetBytes(key);
             aes.Mode = CipherMode.CBC;

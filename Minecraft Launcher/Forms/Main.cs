@@ -220,7 +220,7 @@ namespace Minecraft_Launcher
             else sec = Convert.ToString(now.Second);
 
             Console.WriteLine("["+hour+":"+min+":"+sec+"]"+" "+value);
-        }
+        } //Send message to console
 
         private void createXmlUser()
         {
