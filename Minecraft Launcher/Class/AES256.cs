@@ -12,7 +12,7 @@ namespace Minecraft_Launcher.Class
         public static string GetCrypt(string text)
         {
             string hash = "";
-            SHA512 alg = SHA512.Create();
+            SHA256 alg = SHA256.Create();
             byte[] result = alg.ComputeHash(Encoding.UTF8.GetBytes(text));
             hash = Encoding.UTF8.GetString(result);
             return hash;
@@ -23,7 +23,7 @@ namespace Minecraft_Launcher.Class
         {
             AesCryptoServiceProvider aes = new AesCryptoServiceProvider();
             aes.BlockSize = 128;
-            aes.KeySize = 512;
+            aes.KeySize = 256;
             aes.IV = Encoding.UTF8.GetBytes(iv);
             aes.Key = Encoding.UTF8.GetBytes(key);
             aes.Mode = CipherMode.CBC;
@@ -42,7 +42,7 @@ namespace Minecraft_Launcher.Class
         {
             AesCryptoServiceProvider aes = new AesCryptoServiceProvider();
             aes.BlockSize = 128;
-            aes.KeySize = 512;
+            aes.KeySize = 256;
             aes.IV = Encoding.UTF8.GetBytes(iv);
             aes.Key = Encoding.UTF8.GetBytes(key);
             aes.Mode = CipherMode.CBC;
